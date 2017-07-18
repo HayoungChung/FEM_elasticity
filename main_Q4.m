@@ -102,9 +102,12 @@ K_dense(BCid,:) = 0;
 K_dense(:,BCid) = 0;
 K_dense(BCid,BCid) = eye(length(BCid));
 
-locF = (abs(NODE(:,1) - lxy(1)) < 1e-3) & (abs(NODE(:,2) - lxy(2)/2) < 1e-3);
+locF = find((abs(NODE(:,1) - lxy(1)) < 1e-3) & (abs(NODE(:,2) - lxy(2)/2) < 1e-3));
+% locF = find(abs(NODE(:,1) - lxy(1)) < 1e-3);
 GF = zeros(nDOF,1);
-GF(find(locF)*2-1) = 10; % y direction
+GF(locF*2-1) = 10; % y direction
+% GF(locF(1)*2-1) = 5;
+% GF(locF(end)*2-1) = 5;
 
 %% solve!
 u = K_dense\GF;
@@ -118,5 +121,3 @@ for ee = 1:nELEM
     plot(NODE(elem_id([1,2,3,4,1]),1),NODE(elem_id([1,2,3,4,1]),2),'r--')
     plot(NODE_f(elem_id([1,2,3,4,1]),1),NODE_f(elem_id([1,2,3,4,1]),2),'k-')
 end
-
-
