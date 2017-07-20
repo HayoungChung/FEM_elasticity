@@ -49,7 +49,6 @@ end
 nDOF = nNODE * 2; % dpn = 2;
 dpe = 8;
 K_dense = zeros(nDOF, nDOF);
-K_sparse = zeros(nELEM*dpe*dpe,3);
 
 ri = [-1 1 1 -1]/sqrt(3);
 si = [-1 -1 1 1]/sqrt(3);
@@ -105,7 +104,7 @@ K_dense(BCid,BCid) = eye(length(BCid));
 locF = find((abs(NODE(:,1) - lxy(1)) < 1e-3) & (abs(NODE(:,2) - lxy(2)/2) < 1e-3));
 % locF = find(abs(NODE(:,1) - lxy(1)) < 1e-3);
 GF = zeros(nDOF,1);
-GF(locF*2-1) = 10; % y direction
+GF(locF*2) = 10; % y direction
 % GF(locF(1)*2-1) = 5;
 % GF(locF(end)*2-1) = 5;
 
